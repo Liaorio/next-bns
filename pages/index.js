@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 
 export async function getStaticProps() {
   const response = await axios.get('https://aolimock.free.beeceptor.com/products');
@@ -12,6 +13,16 @@ export async function getStaticProps() {
 
 export default function Home({ productsData }) {
   return (
-    productsData && productsData.data && productsData.data.map((p, i) => <div key={i}>{p.name}</div>)
+    <div>
+        <ul>
+          {productsData.data.map(({ id, name }, index) => (
+            <li key={index}>
+              <Link href={`/products/${id}`}>
+                <a>{name}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
   )
 }
