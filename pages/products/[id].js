@@ -1,18 +1,17 @@
 import axios from "axios";
 
 export async function getStaticProps({ params }) {
-  const response = await axios.get(`https://aolimock.free.beeceptor.com/product/${params.id}`);
+  const response = await axios.get(`https://6209943b6df46f0017f4c551.mockapi.io/api/v1/products/${params.id}`);
   return {
     props: {
-      product: response.data.product,
+      product: response.data,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const response = await axios.get('https://aolimock.free.beeceptor.com/products');
-  const productsData = response.data;
-  const paths = productsData.data.map(p => ({
+  const response = await axios.get('https://6209943b6df46f0017f4c551.mockapi.io/api/v1/products');
+  const paths = response.data.map(p => ({
     params: { id: `${p.id}`},
   }))
 
